@@ -1,0 +1,25 @@
+[package]
+name = "poke-clone"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bevy = { version = "0.9.1", features = ["wayland"] }
+iyes_loopless = "0.9"
+bevy_editor_pls = "0.2"
+# bevy_2d_animation = { git = "https://github.com/Mistrustfully/bevy_2d_animation" }
+bevy_2d_animation = { path = "../bevy_2d_animation" }
+# kayak_ui = "0.2"
+kayak_ui = { git  = "https://github.com/Mistrustfully/kayak_ui" } # Fork for NineTiled
+
+# Enable a small amount of optimization in debug mode
+[profile.dev]
+opt-level = 1
+required-features = ["bevy/dynamic"]
+
+# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
+[profile.dev.package."*"]
+opt-level = 3
+
