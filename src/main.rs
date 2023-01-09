@@ -1,3 +1,4 @@
+use asset_loaders::AssetLoaders;
 use bevy::{
 	diagnostic::FrameTimeDiagnosticsPlugin,
 	prelude::*,
@@ -10,6 +11,7 @@ use kayak_ui::prelude::{widgets::*, *};
 use iyes_loopless::prelude::*;
 use main_menu::MenuPlugin;
 
+mod asset_loaders;
 mod battle;
 mod camera;
 mod lerp;
@@ -39,8 +41,8 @@ fn main() {
 			DefaultPlugins
 				.set(WindowPlugin {
 					window: WindowDescriptor {
-						width: width * 3.0,
-						height: height * 3.0,
+						width: width * 5.0,
+						height: height * 5.0,
 						title: "test".to_string(),
 						resize_constraints: WindowResizeConstraints {
 							min_width: width,
@@ -53,6 +55,7 @@ fn main() {
 				})
 				.set(ImagePlugin::default_nearest()),
 		)
+		.add_plugin(AssetLoaders)
 		.add_plugin(KayakContextPlugin)
 		.add_plugin(KayakWidgets)
 		.add_plugin(widgets::WidgetPlugin)

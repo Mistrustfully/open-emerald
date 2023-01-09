@@ -63,23 +63,23 @@ fn render_menu(
 					height: StyleProp::Value(Units::Pixels(160.0)),
 					..default()
 				}}
-								>
-				<MenuButtonBundle
-					props={MenuButtonProps {
-						text: "Single Player".into(),
-						selected: menu.selected_button == 0,
-					}}
-				/>
-				<MenuButtonBundle
-					props={MenuButtonProps {
-						text: "Multiplayer".into(),
-						selected: menu.selected_button == 1,
-					}}
-				/>
-				<MenuButtonBundle
-					props={MenuButtonProps {
-						text: "Options".into(),
-						selected: menu.selected_button == 2,
+		>
+			<MenuButtonBundle
+				props={MenuButtonProps {
+					text: "SINGLE PLAYER".into(),
+					selected: menu.selected_button == 0,
+				}}
+			/>
+			<MenuButtonBundle
+				props={MenuButtonProps {
+					text: "MULTIPLAYER".into(),
+					selected: menu.selected_button == 1,
+				}}
+			/>
+			<MenuButtonBundle
+				props={MenuButtonProps {
+					text: "OPTION".into(),
+					selected: menu.selected_button == 2,
 				}}
 			/>
 		</BackgroundBundle>
@@ -99,18 +99,9 @@ fn navigate(mut query: Query<&mut Menu, Without<PreviousWidget>>, keys: Res<Inpu
 		menu.selected_button
 	})
 	.clamp(0, 2);
-
-	println!("{}", menu.selected_button);
 }
 
-fn startup(
-	mut commands: Commands,
-	mut font_mapping: ResMut<FontMapping>,
-	asset_server: Res<AssetServer>,
-	mut widget_context_query: Query<&mut KayakRootContext>,
-) {
-	font_mapping.set_default(asset_server.load("font.kayak_font"));
-
+fn startup(mut commands: Commands, mut widget_context_query: Query<&mut KayakRootContext>) {
 	let mut widget_context = widget_context_query.get_single_mut().unwrap();
 	widget_context.add_widget_data::<Menu, MenuState>();
 	widget_context.add_widget_system(
@@ -124,7 +115,6 @@ fn startup(
 	rsx! {
 		<KayakAppBundle>
 			< MenuBundle />
-
 		</KayakAppBundle>
 	};
 }

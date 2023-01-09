@@ -14,6 +14,12 @@ use bevy_editor_pls::default_windows::hierarchy::picking::EditorRayCastSource;
 
 pub const NATIVE_LAYER: RenderLayers = RenderLayers::layer((RenderLayers::TOTAL_LAYERS - 1) as u8);
 pub const BATTLE_LAYER: RenderLayers = RenderLayers::layer((RenderLayers::TOTAL_LAYERS - 2) as u8);
+pub const TRANSPARENT: Color = Color::Rgba {
+	red: 0.0,
+	green: 0.0,
+	blue: 0.0,
+	alpha: 0.0,
+};
 
 pub struct CameraPlugin;
 impl Plugin for CameraPlugin {
@@ -78,11 +84,11 @@ fn setup_cameras(
 
 	let mut overworld_camera = Camera2dBundle::default();
 	overworld_camera.camera.target = RenderTarget::Image(overworld_handle.clone_weak());
-	overworld_camera.camera_2d.clear_color = ClearColorConfig::None;
+	overworld_camera.camera_2d.clear_color = ClearColorConfig::Custom(TRANSPARENT);
 
 	let mut battle_camera = Camera2dBundle::default();
 	battle_camera.camera.target = RenderTarget::Image(battle_handle.clone_weak());
-	battle_camera.camera_2d.clear_color = ClearColorConfig::None;
+	battle_camera.camera_2d.clear_color = ClearColorConfig::Custom(TRANSPARENT);
 
 	let mut ui_camera = ui_camera_query
 		.get_single_mut()

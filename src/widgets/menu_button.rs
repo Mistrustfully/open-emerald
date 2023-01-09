@@ -1,6 +1,8 @@
 use bevy::prelude::*;
 use kayak_ui::prelude::{widgets::*, *};
 
+use crate::widgets::sprited_text::{SpritedText, SpritedTextBundle};
+
 #[derive(Component, Clone, PartialEq, Eq, Default)]
 pub struct MenuButtonProps {
 	pub text: String,
@@ -60,7 +62,7 @@ pub fn menu_button_render(
 		let props = menu_button_query.get(entity).unwrap();
 		let parent_id = Some(entity);
 
-		let color = if props.selected { 1.0 } else { 0.3 };
+		let color = if props.selected { 1.0 } else { 0.55 };
 
 		rsx! {
 			<NineTiledBundle
@@ -76,30 +78,45 @@ pub fn menu_button_render(
 						red: color,
 						green: color,
 						blue: color,
-						alpha: if color == 0.3 { 0.05 } else { 1.0 },
+						alpha: 1.0,
 					}),
 					..default()
 				}}
 			>
-				<TextWidgetBundle
-					text={TextProps {
-						content: props.text.clone(),
-						size: 16.0,
-						alignment: Alignment::Middle,
-						..default()
+				<SpritedTextBundle
+					props={SpritedText {
+						text: props.text.clone(),
+						font: asset_server.load("fonts/latin_normal.png"),
+						font_config: asset_server.load("fonts/latin_normal.font_config")
 					}}
 					styles={KStyle {
 						color: StyleProp::Value(Color::Rgba {
-							red: 0.0,
-							green: 0.0,
-							blue: 0.0,
-							alpha: 0.0,
+							red: color,
+							green: color,
+							blue: color,
+							alpha: 1.0,
 						}),
-						top: StyleProp::Value(Units::Stretch(1.0)),
-						bottom: StyleProp::Value(Units::Stretch(1.0)),
 						..default()
 					}}
 				/>
+				// <TextWidgetBundle
+				// 	text={TextProps {
+				// 		content: props.text.clone(),
+				// 		size:17.0,
+				// 		alignment: Alignment::Middle,
+				// 		..default()
+				// 	}}
+				// 	styles={KStyle {
+				// 		color: StyleProp::Value(Color::Rgba {
+				// 			red: 0.0,
+				// 			green: 0.0,
+				// 			blue: 0.0,
+				// 			alpha: 0.0,
+				// 		}),
+				// 		height: StyleProp::Value(Units::Stretch(1.0)),
+				// 		..default()
+				// 	}}
+				// />
 			</NineTiledBundle>
 		};
 	};

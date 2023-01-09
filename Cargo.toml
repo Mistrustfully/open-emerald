@@ -9,10 +9,12 @@ edition = "2021"
 bevy = { version = "0.9.1", features = ["wayland"] }
 iyes_loopless = "0.9"
 bevy_editor_pls = "0.2"
-# bevy_2d_animation = { git = "https://github.com/Mistrustfully/bevy_2d_animation" }
-bevy_2d_animation = { path = "../bevy_2d_animation" }
+bevy_2d_animation = { git = "https://github.com/Mistrustfully/bevy_2d_animation" }
+# bevy_2d_animation = { path = "../bevy_2d_animation" }
 # kayak_ui = "0.2"
 kayak_ui = { git  = "https://github.com/Mistrustfully/kayak_ui" } # Fork for NineTiled
+serde_json = "1.0" 
+serde = "1.0"
 
 # Enable a small amount of optimization in debug mode
 [profile.dev]

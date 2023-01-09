@@ -2,7 +2,12 @@ use bevy::{core_pipeline::clear_color::ClearColorConfig, prelude::*};
 use kayak_ui::{prelude::*, widgets::*};
 use menu_button::*;
 
+use crate::camera::TRANSPARENT;
+
+use self::sprited_text::{render_sprited_text, sprited_text_update, SpritedText, SpritedTextState};
+
 pub mod menu_button;
+pub mod sprited_text;
 
 #[derive(Component)]
 pub struct UICamera;
@@ -20,9 +25,16 @@ impl Plugin for WidgetPlugin {
 			menu_button_render,
 		);
 
+		widget_context.add_widget_data::<SpritedText, SpritedTextState>();
+		widget_context.add_widget_system(
+			SpritedText::default().get_name(),
+			sprited_text_update,
+			render_sprited_text,
+		);
+
 		let mut camera = UICameraBundle::new(widget_context);
 		// Allows for transparent UI elements.
-		camera.camera_ui.clear_color = ClearColorConfig::None;
+		camera.camera_ui.clear_color = ClearColorConfig::Custom(TRANSPARENT);
 
 		app.world.spawn((camera, UICamera));
 	}
