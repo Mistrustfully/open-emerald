@@ -4,3 +4,11 @@ rustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold", "-Zshare-generics=y"]
 
 [target.wasm32-unknown-unknown]
 runner = "wasm-server-runner"
+
+[profile.dev]
+opt-level = 1
+required-features = ["bevy/dynamic"]
+
+# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
+[profile.dev.package."*"]
+opt-level = 3

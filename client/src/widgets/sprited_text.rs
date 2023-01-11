@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use kayak_ui::prelude::{widgets::*, *};
 
-use crate::asset_loaders::font_config::FontConfig;
+use crate::{asset_loaders::font_config::FontConfig, KBundle};
 
 #[derive(Component, Clone, PartialEq, Eq, Default)]
 pub struct SpritedText {
@@ -16,50 +16,21 @@ pub struct SpritedTextState {
 	loaded: bool,
 }
 
-#[derive(Bundle)]
-pub struct SpritedTextBundle {
-	pub props: SpritedText,
-	pub styles: KStyle,
-	pub computed_styles: ComputedStyles,
-	pub children: KChildren,
-	pub on_event: OnEvent,
-	pub widget_name: WidgetName,
-}
-
-impl Default for SpritedTextBundle {
-	fn default() -> Self {
-		Self {
-			props: SpritedText::default(),
-			styles: KStyle::default(),
-			computed_styles: ComputedStyles::default(),
-			children: KChildren::default(),
-			on_event: OnEvent::default(),
-			widget_name: SpritedText::default().get_name(),
-		}
-	}
-}
+KBundle!(SpritedTextBundle, SpritedText);
 
 pub fn render_sprited_text(
 	In((widget_context, entity)): In<(KayakWidgetContext, Entity)>,
 	mut commands: Commands,
-	mut state_query: Query<&mut SpritedTextState>,
 	props_query: Query<&SpritedText>,
+	// style_query: Query<&KStyle>,
 	font_configs: Res<Assets<FontConfig>>,
 ) -> bool {
 	let props = props_query.get(entity).unwrap();
 	let parent_id = Some(entity);
 
-	// println!("{:?}", font_configs);
 	if let Some(font_config) = font_configs.get(&props.font_config) {
-		let state_entity =
-			widget_context.use_state(&mut commands, entity, SpritedTextState::default());
-		if let Ok(mut state) = state_query.get_mut(state_entity) {
-			if state.loaded == false {
-				state.loaded = true;
-			}
-		}
-
-		// println!("{:?}", font_config.layout);
+		widget_context.use_state(&mut commands, entity, SpritedTextState { loaded: true });
+		// let style = style_query.get(entity).unwrap();
 
 		rsx! {
 			<ElementBundle
@@ -106,20 +77,21 @@ pub fn sprited_text_update(
 	widget_param: WidgetParam<SpritedText, SpritedTextState>,
 	font_configs: Res<Assets<FontConfig>>,
 ) -> bool {
-	// if let Some(state_entity) = widget_context.get_state(entity) {
-	// println!("1");
-	// if let Ok(state) = widget_param.state_query.get(state_entity) {
-	// println!("2");
-	if let Ok(props) = widget_param.props_query.get(entity) {
-		// println!("3");
-		if font_configs.get(&props.font_config.clone_weak()).is_some()
-		// && state.loaded == false
-		{
-			return true;
+	return if let Ok(props) = widget_param.props_query.get(entity) {
+		if let Some(state_entity) = widget_context.get_state(entity) {
+			if let Ok(state) = widget_param.state_query.get(state_entity) {
+				if state.loaded {
+					widget_param.has_changed(&widget_context, entity, previous_entity);
+				}
+			}
 		}
-	}
-	// }
-	// }
 
-	widget_param.has_changed(&widget_context, entity, previous_entity)
+		if font_configs.get(&props.font_config.clone_weak()).is_some() {
+			true
+		} else {
+			widget_param.has_changed(&widget_context, entity, previous_entity)
+		}
+	} else {
+		widget_param.has_changed(&widget_context, entity, previous_entity)
+	};
 }
