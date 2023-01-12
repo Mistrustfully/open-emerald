@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 Christian Fletcher <mistrustfully@gmail.com>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use crate::{widgets::UICamera, HEIGHT, WIDTH};
 use bevy::{
 	core_pipeline::clear_color::ClearColorConfig,

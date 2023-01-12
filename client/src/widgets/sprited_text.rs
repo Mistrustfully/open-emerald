@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 Christian Fletcher <mistrustfully@gmail.com>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use bevy::prelude::*;
 use kayak_ui::prelude::{widgets::*, *};
 
@@ -89,7 +93,7 @@ pub fn sprited_text_update(
 		if font_configs.get(&props.font_config.clone_weak()).is_some() {
 			true
 		} else {
-			widget_param.has_changed(&widget_context, entity, previous_entity)
+			false
 		}
 	} else {
 		widget_param.has_changed(&widget_context, entity, previous_entity)

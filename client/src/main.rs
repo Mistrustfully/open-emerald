@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 Christian Fletcher <mistrustfully@gmail.com>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use asset_loaders::AssetLoaders;
 use bevy::{
 	diagnostic::FrameTimeDiagnosticsPlugin,
@@ -35,18 +39,18 @@ fn main() {
 	let height = HEIGHT as f32;
 
 	let mut app = App::new();
-	app.add_loopless_state(GameState::Menu)
+	app.add_loopless_state(GameState::Overworld)
 		.insert_resource(Msaa { samples: 1 })
 		.add_plugins(
 			DefaultPlugins
 				.set(WindowPlugin {
 					window: WindowDescriptor {
-						width: width * 5.0,
-						height: height * 5.0,
+						width: width * 3.0,
+						height: height * 3.0,
 						title: "test".to_string(),
 						resize_constraints: WindowResizeConstraints {
-							min_width: width,
-							min_height: height,
+							min_width: width * 3.0,
+							min_height: height * 3.0,
 							..default()
 						},
 						..default()

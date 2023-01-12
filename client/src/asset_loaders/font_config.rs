@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 Christian Fletcher <mistrustfully@gmail.com>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! Implements loader for a custom asset type.
 
 use bevy::{

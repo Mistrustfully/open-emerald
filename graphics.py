@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+
+# SPDX-FileCopyrightText: 2023 Christian Fletcher <mistrustfully@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # A small helper script for graphic assets.
 
 from PIL import Image

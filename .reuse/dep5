@@ -1,0 +1,42 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: open-emerald
+Upstream-Contact: Christian Fletcher <mistrustfully@gmail.com>
+Source: https://github.com/Mistrustfully/open-emerald
+
+# Sample paragraph, commented out:
+#
+# Files: src/*
+# Copyright: $YEAR $NAME <$CONTACT>
+# License: ...
+
+Files: client/assets/*
+Copyright: 2008 GameFreak <https://www.gamefreak.co.jp>
+License: LicenseRef-Proprietary
+
+Files: *.toml
+Copyright: 2022 Christian Fletcher <mistrustfully@gmail.com>
+License: CC0-1.0
+
+Files: .cargo/*
+Copyright: 2022 Christian Fletcher <mistrustfully@gmail.com>
+License: CC0-1.0
+
+Files: **/Cargo.toml
+Copyright: 2022 Christian Fletcher <mistrustfully@gmail.com>
+License: CC0-1.0
+
+Files: Cargo.lock
+Copyright: 2022 Christian Fletcher <mistrustfully@gmail.com>
+License: CC0-1.0
+
+Files: COPYING
+Copyright: 2022 Christian Fletcher <mistrustfully@gmail.com>
+License: CC0-1.0
+
+Files: README.md
+Copyright: 2022 Christian Fletcher <mistrustfully@gmail.com>
+License: CC0-1.0
+
+Files: .gitignore
+Copyright: 2022 Christian Fletcher <mistrustfully@gmail.com>
+License: CC0-1.0

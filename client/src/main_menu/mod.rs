@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 Christian Fletcher <mistrustfully@gmail.com>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use bevy::prelude::*;
 use iyes_loopless::prelude::AppLooplessStateExt;
 use kayak_ui::prelude::{widgets::*, *};
@@ -117,20 +121,20 @@ fn render_menu(
 }
 
 fn navigate(mut query: Query<&mut Menu, Without<PreviousWidget>>, keys: Res<Input<KeyCode>>) {
-	let mut menu = query.get_single_mut().expect("Expected Menu!");
+	if let Ok(mut menu) = query.get_single_mut() {
+		menu.selected_button = if keys.just_pressed(KeyCode::Down) {
+			menu.selected_button + 1
+		} else if keys.just_pressed(KeyCode::Up) {
+			menu.selected_button.checked_sub(1).unwrap_or(0)
+		} else {
+			menu.selected_button
+		}
+		.clamp(0, 2);
 
-	menu.selected_button = if keys.just_pressed(KeyCode::Down) {
-		menu.selected_button + 1
-	} else if keys.just_pressed(KeyCode::Up) {
-		menu.selected_button.checked_sub(1).unwrap_or(0)
-	} else {
-		menu.selected_button
+		if keys.just_pressed(KeyCode::Z) {
+			menu.window = MenuWindow::Option;
+		};
 	}
-	.clamp(0, 2);
-
-	if keys.just_pressed(KeyCode::Z) {
-		menu.window = MenuWindow::Option;
-	};
 }
 
 fn startup(mut commands: Commands, mut widget_context_query: Query<&mut KayakRootContext>) {

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 Christian Fletcher <mistrustfully@gmail.com>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use bevy::prelude::*;
 use kayak_ui::prelude::{widgets::*, *};
 
@@ -38,7 +42,7 @@ pub fn menu_button_render(
 
 	rsx! {
 		<NineTiledBundle
-			nine_patch={NineTiled { handle: asset_server.load("text_window/2.png"), border: Edge::all(8.0) }}
+			nine_patch={NineTiled { handle: asset_server.load("text_window/7.png"), border: Edge::all(8.0) }}
 			styles={KStyle {
 				width: StyleProp::Value(Units::Pixels(224.0)),
 				height: StyleProp::Value(Units::Pixels(32.0)),
