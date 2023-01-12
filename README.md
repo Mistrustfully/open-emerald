@@ -3,7 +3,7 @@ An open source, open world Pokèmon Fangame.
 Inspired largely by [PokèWilds](https://github.com/SheerSt/pokewilds).
 
 ## Licensing
-All code is licensed under GPL-3.0-or-later (see [copying](COPYING). License headers are managed by [reuse](https://reuse.software/). 
+All code is licensed under GPL-3.0-or-later (see [copying](COPYING)). License headers are managed by [Reuse](https://reuse.software/). 
 
 Assets are owned by GameFreak. 
 
